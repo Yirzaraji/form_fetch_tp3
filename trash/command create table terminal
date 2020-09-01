@@ -1,0 +1,63 @@
+connect mysql : mysql -u root -p
+Create db: CREATE DATABASE elevage CHARACTER SET 'utf8';
+
+selection de la base : 
+USE form_secure
+
+
+Creer table :
+
+CREATE TABLE roles (
+    id_roles SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    attribut VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+)
+ENGINE=INNODB;
+
+
+install symfony + composer + php unit
+
+1/ wget https://get.symfony.com/cli/installer -O - | bash
+    symfony new my_project
+
+2/sudo apt install composer
+
+3/ composer require phpunit/phpunit
+
+
+ extends PHPUnit_Framework_TestCase
+ PHPUnit_Framework_TestCase
+
+ https://www.startutorial.com/articles/view/phpunit-beginner-part-1-get-started
+
+ disponibilité:
+  element de securité base de donnée (connexion)
+ La base est dispo pour les utilisateirs
+
+ integrité: 
+ les informations contenu dans la base peuvent pas etre modifier par le formulaire
+
+confidentialité:
+ mettre serveur bdd sur un autre serveur que celui qui gere le front
+
+ Preuve:
+concerne les logs
+
+Comp 7
+validation des donnée saisies par l'utilisateur
+coté client: eviter les entrées interdite
+cote serveur: je sais pas
+
+comp8 gestion de contenu
+creation de module (extensions)
+
+comp5 
+test unitaire phpunit
+
+
+Jointure entre table user et table roles
+
+SELECT j.nom nom_jeu, p.prenom prenom_proprietaire
+FROM proprietaires p
+INNER JOIN jeux_video j
+ON j.ID_proprietaire = p.ID

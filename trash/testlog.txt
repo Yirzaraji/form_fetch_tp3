@@ -1,0 +1,2 @@
+log non hashé dans la BDD : root/admin
+Log hashé dans la BDD: yirzaraji/admin
