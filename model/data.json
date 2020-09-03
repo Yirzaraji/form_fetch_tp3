@@ -1,7 +1,18 @@
 [{
-    "player":"Ahsoka"
+    "nom": "Ashoka",
+    "pseudo": "Tano",
+    "xp": 2000,
+    "urlavatar": "../images/asoka.jpg"
 },
 {
-    "player":"Mace"
+    "nom": "Mace",
+    "pseudo": "Windo",
+    "xp": 4000,
+    "urlavatar": "../images/mace.jpg"
+},
+{
+    "nom": "Satele",
+    "pseudo": "Shan",
+    "xp": 4000,
+    "urlavatar": "../images/satele.jpg"
 }]
-

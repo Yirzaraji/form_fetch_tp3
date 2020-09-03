@@ -12,7 +12,7 @@ transition: 0.2s;
 text-align: center;
 font-family: arial;
 font-weight: 900;
-color:white;$
+color:white;
 text-decoration: none;
 
 }
@@ -67,3 +67,9 @@ border: solid 1px#ced4da;
     width: 50%;
 
 }
+
+
+.card img{
+    width: 100%;
+}
+
