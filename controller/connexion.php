@@ -29,6 +29,7 @@ $user_login = $resultat['login'];
 
 // Comparaison du pass envoyé via le formulaire avec la base
 $isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
+$_SESSION['pass'] = $resultat['password'];
 
 
 if (!$isPasswordCorrect){

@@ -1,51 +1,87 @@
-<?php include ('../view/header.php');
+<?php 
 session_start();
+error_reporting(-1);
+ini_set('display_errors', 'On');
+
+include ('../model/database.php');
+include ('../view/header.php');
+
+connectdb();
  ?>
 
 <body>
 
 <?php
+//var_dump($_SESSION['pass']);
     if(isset($_SESSION['success'])){
         ?>   
+        <form action="espaceMembre.php" method="post" >
+        <input class="btn btn-info" type="submit" value="Deconnexion" name="deco">
+        <input class="btn btn-danger" type="submit" value="Delete" name="delete">
+        </form>
+        <?php 
+        if(isset($_POST['deco'])){
+          session_destroy();
+        }else if(isset($_POST['delete'])){
+          echo "coucou";
+
+          
+          $req = $db->prepare('DELETE FROM user WHERE login = :login');
+          $req->execute(array(
+          'login' => $_SESSION['pseudo2']));
+          session_destroy(); 
+          header('Location: ../index.php');
+        }
+        
+        ?>
+
+
+
         <h1 class="text-center">Bienvenue sur votre espace membre <?php echo $_SESSION['pseudo2'].' ' ?>!</h1>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-4 text-center">
+              <div class="card" style="width: 18rem;">
+              
+                <div class="card-body">
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="card" style="width: 18rem;">
+              
+                <div class="card-body">
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <div class="card" style="width: 18rem;">
+              
+                <div class="card-body">
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
+              <button class="btn btn-info justify-content-center" id="save">Save it ! </button>
+              <div class="alert alert-success" id="success" role="alert">
+                Success !
+              </div>
+          </div>
+        </div>
         <?php
     } else{
       echo "Pour voir le contenu de cette page veuillez vous identifier";
+      ?>
+        <div class="destroyb">
+          <br><br><a href="../view/connect.php">Home</a>
+        </div>
+      <?php
     }
 ?>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-4 text-center">
-      <div class="card" style="width: 18rem;">
-       
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 text-center">
-      <div class="card" style="width: 18rem;">
-      
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 text-center">
-      <div class="card" style="width: 18rem;">
-       
-        <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-      </div>
-    </div>
-      <button class="btn btn-info justify-content-center" id="save">Save it ! </button>
-      <div class="alert alert-success" id="success" role="alert">
-        Success !
-      </div>
-  </div>
-</div>
+
 
 
 
