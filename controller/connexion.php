@@ -23,12 +23,9 @@ $req->execute(array(
 
 //On target la seul rangée de l'utilisateur concerné
 $resultat = $req->fetch();
-$user_login = $resultat['login'];
-
-
 
 // Comparaison du pass envoyé via le formulaire avec la base
-$isPasswordCorrect = password_verify($_POST['password'], $resultat['password']);
+$isPasswordCorrect = password_verify($_SESSION['password2'], $resultat['password']);
 $_SESSION['pass'] = $resultat['password'];
 
 

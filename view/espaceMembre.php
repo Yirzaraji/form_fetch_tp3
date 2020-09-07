@@ -13,18 +13,28 @@ connectdb();
 
 <?php
 //var_dump($_SESSION['pass']);
-    if(isset($_SESSION['success'])){
+      if(isset($_SESSION['success'])){
         ?>   
         <form action="espaceMembre.php" method="post" >
-        <input class="btn btn-info" type="submit" value="Deconnexion" name="deco">
-        <input class="btn btn-danger" type="submit" value="Delete" name="delete">
+          <div class="form-group">
+            <input class="btn btn-info" type="submit" value="Deconnexion" name="deco">
+            <input class="btn btn-danger" type="submit" value="Delete" name="delete">
+          </div>
+          <div class="form-group">
+          <label for="pw">Ancien MDP</label></br>
+            <input class="btn btn-dark" type="password" name="OldPw" id="pw">
+          </br><label for="pw2">New MDP</label></br>
+            <input class="btn btn-dark" type="password" name="NewPw" id="pw2"></br>
+            <input class="btn btn-danger" type="submit" value="Confirm" name="pwConfirm">
+          </div>
         </form>
         <?php 
+        //deconnecte l'utilisateur
         if(isset($_POST['deco'])){
           session_destroy();
-        }else if(isset($_POST['delete'])){
-          echo "coucou";
 
+        //delete le compte utilisateur
+        }else if(isset($_POST['delete'])){
           
           $req = $db->prepare('DELETE FROM user WHERE login = :login');
           $req->execute(array(
@@ -32,6 +42,34 @@ connectdb();
           session_destroy(); 
           header('Location: ../index.php');
         }
+        //change le mot de passe de l'utilisateur
+        else if(isset($_POST['pwConfirm'])){
+
+          $isPasswordCorrectBis = password_verify(htmlspecialchars($_POST['OldPw']), $_SESSION['pass']);
+          if($isPasswordCorrectBis){
+           
+            $passwordNew = password_hash(htmlspecialchars($_POST['NewPw']), PASSWORD_BCRYPT);
+            $req = $db->prepare('UPDATE user SET password = :password WHERE login = :login');
+            $req->execute(array(
+            'password' => htmlspecialchars($passwordNew),
+            'login' => htmlspecialchars($_SESSION['pseudo2'])
+          
+            ));
+            ?>
+            <div class="alert alert-success" role="alert">
+                Password Changé !
+              </div>
+            <?php
+          }else{
+            ?>
+            <div class="alert alert-danger" role="alert">
+              Les passwords ne correspondent pas
+            </div>
+            <?php
+
+          }
+        }
+        
         
         ?>
 
@@ -71,14 +109,14 @@ connectdb();
           </div>
         </div>
         <?php
-    } else{
-      echo "Pour voir le contenu de cette page veuillez vous identifier";
-      ?>
-        <div class="destroyb">
-          <br><br><a href="../view/connect.php">Home</a>
-        </div>
-      <?php
-    }
+      } else{
+        echo "Pour voir le contenu de cette page veuillez vous identifier";
+        ?>
+          <div class="destroyb">
+            <br><br><a href="../view/connect.php">Home</a>
+          </div>
+        <?php
+      }
 ?>
 
 
